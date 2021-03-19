@@ -1,11 +1,8 @@
 package main
 
 import (
-	"fmt"
-	"strings"
 	"sync"
 
-	"github.com/mattermost/mattermost-server/v5/model"
 	"github.com/mattermost/mattermost-server/v5/plugin"
 	"github.com/pkg/errors"
 )
@@ -22,37 +19,11 @@ type Plugin struct {
 	configuration *configuration
 }
 
-// registering a slashcommand /hello
+// registering a slash command /hello
 func (p *Plugin) OnActivate() error {
 
-	if err := p.API.RegisterCommand(&model.Command{
-		Trigger:          "hello",
-		AutoComplete:     true,
-		AutoCompleteHint: "",
-		AutoCompleteDesc: "responds world",
-	}); err != nil {
+	if err := p.registerCommands(); err != nil {
 		return errors.Wrapf(err, "failed to register  command")
 	}
 	return nil
-
-}
-
-// adding functionality to to slashcommand
-func (p *Plugin) ExecuteCommand(c *plugin.Context, args *model.CommandArgs) (*model.CommandResponse, *model.AppError) {
-
-	// reading the slashcommand
-	trigger := strings.TrimPrefix(strings.Fields(args.Command)[0], "/")
-	switch trigger {
-	case "hello":
-		return &model.CommandResponse{
-			ResponseType: model.COMMAND_RESPONSE_TYPE_EPHEMERAL,
-			Text:         fmt.Sprintf("World"),
-		}, nil
-
-	default:
-		return &model.CommandResponse{
-			ResponseType: model.COMMAND_RESPONSE_TYPE_EPHEMERAL,
-			Text:         fmt.Sprintf("Unknown__ command: " + args.Command),
-		}, nil
-	}
 }
