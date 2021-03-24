@@ -23,11 +23,22 @@ func (p *Plugin) registerCommands() error {
 
 func (p *Plugin) ExecuteCommand(c *plugin.Context, args *model.CommandArgs) (*model.CommandResponse, *model.AppError) {
 	trigger := strings.TrimPrefix(strings.Fields(args.Command)[0], "/")
+	username := ""
 	switch trigger {
 	case "hello":
+		UserId := args.UserId
+
+		user, appErr := p.API.GetUser(UserId)
+		if appErr != nil {
+			username = "there"
+		} else {
+			username = user.GetFullName()
+		}
+
+		//fmt.Sprintf(Apperr.Message)
 		return &model.CommandResponse{
 			ResponseType: model.COMMAND_RESPONSE_TYPE_EPHEMERAL,
-			Text:         fmt.Sprintf("World"),
+			Text:         fmt.Sprintf("Hi " + username),
 		}, nil
 
 	default:
