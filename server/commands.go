@@ -10,8 +10,10 @@ import (
 )
 
 func (p *Plugin) registerCommands() error {
+	commandName := p.getConfiguration().getCommandName()
+
 	if err := p.API.RegisterCommand(&model.Command{
-		Trigger:          "hello",
+		Trigger:          commandName,
 		AutoComplete:     true,
 		AutoCompleteDesc: "responds world",
 	}); err != nil {
@@ -23,35 +25,29 @@ func (p *Plugin) registerCommands() error {
 
 func (p *Plugin) ExecuteCommand(c *plugin.Context, args *model.CommandArgs) (*model.CommandResponse, *model.AppError) {
 	trigger := strings.TrimPrefix(strings.Fields(args.Command)[0], "/")
+	commandName := p.getConfiguration().getCommandName()
 	username := ""
+	UserId := args.UserId
+	user, appErr := p.API.GetUser(UserId)
+	if appErr == nil {
+		username = user.GetFullName()
+	}
+	if username == "" {
+		username = p.getConfiguration().getUsername()
+
+	}
+
 	switch trigger {
-	case "hello":
-		UserId := args.UserId
-
-		user, appErr := p.API.GetUser(UserId)
-		if appErr != nil {
-			username = "there"
-		} else {
-			username = user.GetFullName()
-		}
-
-		//fmt.Sprintf(Apperr.Message)
+	case commandName:
 		return &model.CommandResponse{
 			ResponseType: model.COMMAND_RESPONSE_TYPE_EPHEMERAL,
-			Text:         fmt.Sprintf("Hi " + username),
+			Text:         fmt.Sprintf("Hello " + username),
 		}, nil
 
 	default:
 		return &model.CommandResponse{
 			ResponseType: model.COMMAND_RESPONSE_TYPE_EPHEMERAL,
-			Text:         fmt.Sprintf("Unknown__ command: " + args.Command),
+			Text:         fmt.Sprintf("Unknown command: " + args.Command),
 		}, nil
-	}
-}
-
-func (p *Plugin) executeAutocompleteTest(args *model.CommandArgs) *model.CommandResponse {
-	return &model.CommandResponse{
-		ResponseType: model.COMMAND_RESPONSE_TYPE_EPHEMERAL,
-		Text:         fmt.Sprintf("World"),
 	}
 }

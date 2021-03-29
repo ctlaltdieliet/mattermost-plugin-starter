@@ -18,6 +18,28 @@ import (
 // If you add non-reference types to your configuration struct, be sure to rewrite Clone as a deep
 // copy appropriate for your types.
 type configuration struct {
+	// The name for the command that we will create.
+	Commandname string
+
+	// The username that will respond.
+	Username string
+}
+
+const DefaultCommandName = "ciao"
+const DefaultUsername = "there"
+
+func (c *configuration) getCommandName() string {
+	if len(c.Commandname) > 0 {
+		return c.Commandname
+	}
+	return DefaultCommandName
+}
+
+func (c *configuration) getUsername() string {
+	if len(c.Commandname) > 0 {
+		return c.Username
+	}
+	return DefaultUsername
 }
 
 // Clone shallow copies the configuration. Your implementation may require a deep copy if
