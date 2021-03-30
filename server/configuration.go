@@ -25,7 +25,7 @@ type configuration struct {
 	Username string
 }
 
-const DefaultCommandName = "ciao"
+const DefaultCommandName = "hello"
 const DefaultUsername = "there"
 
 func (c *configuration) getCommandName() string {
@@ -36,10 +36,14 @@ func (c *configuration) getCommandName() string {
 }
 
 func (c *configuration) getUsername() string {
-	if len(c.Commandname) > 0 {
+	if len(c.Username) > 0 {
 		return c.Username
 	}
 	return DefaultUsername
+}
+
+func (c *configuration) setUsername(newUsername string) {
+	c.Username = newUsername
 }
 
 // Clone shallow copies the configuration. Your implementation may require a deep copy if

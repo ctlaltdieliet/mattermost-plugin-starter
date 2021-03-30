@@ -19,12 +19,17 @@ func (p *Plugin) registerCommands() error {
 	}); err != nil {
 		return errors.Wrapf(err, "failed to register  command")
 	}
-
 	return nil
 }
 
 func (p *Plugin) ExecuteCommand(c *plugin.Context, args *model.CommandArgs) (*model.CommandResponse, *model.AppError) {
 	trigger := strings.TrimPrefix(strings.Fields(args.Command)[0], "/")
+	newname := ""
+	if len(strings.Fields(args.Command)) > 1 && newname == "" {
+		newname = strings.Fields(args.Command)[1]
+		p.getConfiguration().setUsername(newname)
+	}
+
 	commandName := p.getConfiguration().getCommandName()
 	username := ""
 	UserId := args.UserId
