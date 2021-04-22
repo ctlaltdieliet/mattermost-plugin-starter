@@ -10,5 +10,19 @@
             "darwin-amd64": "server/dist/plugin-darwin-amd64",
             "windows-amd64": "server/dist/plugin-windows-amd64.exe"
         }
+    },
+    "settings_schema": {
+        "header": "Configure your demo plugin settings below.",
+        "footer": "Footer: The code for this demo plugin can be found [here](https://github.com/mattermost/mattermost-plugin-demo).",
+        "settings": [
+            {
+                "key": "defaultgreeting",
+                "display_name": "The default answer:",
+                "type": "text",
+                "help_text": "The default greeting if no name is available",
+                "placeholder": "Hi there",
+                "default": "Hi there"
+            }
+        ]
     }
 }
