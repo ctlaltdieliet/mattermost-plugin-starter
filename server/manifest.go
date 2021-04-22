@@ -12,11 +12,11 @@ var manifest *model.Manifest
 
 const manifestStr = `
 {
-  "id": "com.mattermost.plugin-starter-template",
-  "name": "Plugin Starter Template",
-  "description": "This plugin serves as a starting point for writing a Mattermost plugin.",
+  "id": "be.controlaltdieliet.demoortom.first_mattermost_plugin",
+  "name": "My First Plugin",
+  "description": "This plugin is a first test.",
   "version": "0.1.0",
-  "min_server_version": "5.12.0",
+  "min_server_version": "5.29.0",
   "server": {
     "executables": {
       "linux-amd64": "server/dist/plugin-linux-amd64",
@@ -29,9 +29,18 @@ const manifestStr = `
     "bundle_path": "webapp/dist/main.js"
   },
   "settings_schema": {
-    "header": "",
-    "footer": "",
-    "settings": []
+    "header": "Configure your demo plugin settings below.",
+    "footer": "Footer: The code for this demo plugin can be found [here](https://github.com/mattermost/mattermost-plugin-demo).",
+    "settings": [
+      {
+        "key": "defaultgreeting",
+        "display_name": "The default answer:",
+        "type": "text",
+        "help_text": "The default greeting if no name is available",
+        "placeholder": "Hi there",
+        "default": "Hi there"
+      }
+    ]
   }
 }
 `
