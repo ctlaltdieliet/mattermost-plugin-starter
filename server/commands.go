@@ -39,7 +39,6 @@ func (p *Plugin) ExecuteCommand(c *plugin.Context, args *model.CommandArgs) (*mo
 	}
 	if username == "" {
 		username = p.getConfiguration().getUsername()
-
 	}
 
 	switch trigger {
