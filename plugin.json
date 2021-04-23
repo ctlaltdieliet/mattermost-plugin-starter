@@ -21,7 +21,7 @@
                 "type": "text",
                 "help_text": "The default greeting if no name is available",
                 "placeholder": "Hi there",
-                "default": "Hi From the json file"
+                "default": "Hi from the json file"
             }
         ]
     }
