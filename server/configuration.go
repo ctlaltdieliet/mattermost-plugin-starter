@@ -22,7 +22,8 @@ type configuration struct {
 	Commandname string
 
 	// The username that will respond.
-	Username string
+	Username        string
+	DefaultGreeting string
 }
 
 const DefaultCommandName = "hello"
@@ -39,7 +40,7 @@ func (c *configuration) getUsername() string {
 	if len(c.Username) > 0 {
 		return c.Username
 	}
-	return DefaultUsername
+	return DefaultGreeting
 }
 
 func (c *configuration) setUsername(newUsername string) {
