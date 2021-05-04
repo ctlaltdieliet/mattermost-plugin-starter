@@ -1,5 +1,7 @@
 import React from 'react';
 import RightSideBar from './components/right_hand_sidebar'
+import MyFirstComponent from './components/my_first_component'
+
 const Icon = () => <i className='icon fa fa-plug'/>;
 class HelloWorldPlugin {
     initialize(registry, store) {
@@ -20,8 +22,10 @@ class HelloWorldPlugin {
         );
 
         const {toggleRHSPlugin} = registry.registerRightHandSidebarComponent(
-            RightSideBar,"So Cool");
+            RightSideBar,"Applause!");
   
+            const {leftsidebarheader}=registry.registerLeftSidebarHeaderComponent(MyFirstComponent)
+            
     
     }
 }
