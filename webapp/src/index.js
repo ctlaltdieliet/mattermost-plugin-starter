@@ -12,14 +12,10 @@ class HelloWorldPlugin {
          Icon
         );
         registry.registerChannelHeaderButtonAction(
-            // icon - JSX element to use as the button's icon
             <Icon />,
-            // action - a function called when the button is clicked, passed the channel and channel member as arguments
-            // null,
             () => {
-                alert("Hello Tom");
+                alert("Hello there");
             },
-            // dropdown_text - string or JSX element shown for the dropdown button description
             "Hello you",
         );
     }
